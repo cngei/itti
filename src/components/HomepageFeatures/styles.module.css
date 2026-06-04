@@ -23,3 +23,125 @@
   border: 1px solid var(--ifm-color-primary-lightest);
   border-radius: 2px;
 }
+
+.adGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.adCard {
+  background: var(--ifm-background-surface-color, #fff);
+  border: 3px solid #000;
+  border-radius: 0;
+  box-shadow: 8px 8px 0px #000;
+  overflow: hidden;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.adCard:hover {
+  transform: translate(4px, 4px);
+  box-shadow: 4px 4px 0px #000;
+}
+
+.adBorder {
+  height: 8px;
+  width: 100%;
+  background: #000;
+}
+
+.adContent {
+  padding: 1rem;
+}
+
+.adHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.adEmoji {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.adTitleWrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.adTitle {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.adHostname {
+  font-size: 0.7rem;
+  font-family: 'Courier New', monospace;
+  color: var(--ifm-color-emphasis-600);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.adBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ff0000;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 900;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  padding: 0.25rem 0.5rem;
+  transform: rotate(12deg);
+  border: 2px solid #000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 2px 2px 0px #000;
+  z-index: 1;
+}
+
+.adDescription {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.adFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.adButton {
+  display: inline-block;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0px #000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  background: #000;
+}
+
+.adButton:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000;
+  color: #fff;
+  text-decoration: none;
+}

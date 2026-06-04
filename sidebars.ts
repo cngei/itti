@@ -28,6 +28,8 @@ const sidebars: SidebarsConfig = {
         'services/zulip',
         'services/uptime-kuma',
         'services/umami',
+        'services/app-mobile',
+        'services/assemblee',
       ],
     },
   ],

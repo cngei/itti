@@ -1,6 +1,7 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 
 interface Contributor {
@@ -8,6 +9,16 @@ interface Contributor {
   sezione: string;
   avatar?: string;
   description?: string;
+}
+
+interface ServiceAd {
+  name: string;
+  description: string;
+  url: string;
+  hostname: string;
+  color: string;
+  emoji: string;
+  badge?: string;
 }
 
 const contributors: Contributor[] = [
@@ -43,14 +54,139 @@ const contributors: Contributor[] = [
   }
 ];
 
+const serviceAds: ServiceAd[] = [
+  {
+    name: 'Password manager',
+    description: 'Le tue password al sicuro! Basta post-it e file su Drive!',
+    url: 'https://password.cngei.it',
+    hostname: 'password.cngei.it',
+    color: '#ff6b6b',
+    emoji: '🔐',
+    badge: 'GRATIS!',
+  },
+  {
+    name: 'Foto',
+    description: 'Come Google Foto ma nostro!',
+    url: 'https://foto.cngei.it',
+    hostname: 'foto.cngei.it',
+    color: '#4ecdc4',
+    emoji: '📸',
+    badge: 'NOVITÀ!',
+  },
+  {
+    name: 'Cloud',
+    description: 'File, documenti e moduli! Tutto in un posto!',
+    url: 'https://cloud.cngei.it',
+    hostname: 'cloud.cngei.it',
+    color: '#45b7d1',
+    emoji: '☁️',
+    badge: 'TOP!',
+  },
+  {
+    name: 'Siti web',
+    description: 'Il sito del CNGEI e delle sezioni, a prova di lupetto!',
+    url: 'https://cngei.it',
+    hostname: 'cngei.it',
+    color: '#96ceb3',
+    emoji: '🌐',
+  },
+  {
+    name: 'Open data',
+    description: 'Grafici e numeri per capire tutto! Tranne i verbali del GIDO!',
+    url: 'https://opendata.cngei.it',
+    hostname: 'opendata.cngei.it',
+    color: '#feca57',
+    emoji: '📊',
+  },
+  {
+    name: 'Chat',
+    description: 'Diciamo NO ai gruppi Whatsapp',
+    url: 'https://chat.cngei.it',
+    hostname: 'chat.cngei.it',
+    color: '#6c5ce7',
+    emoji: '💬',
+    badge: 'PROVALO!',
+  },
+  {
+    name: 'Statuspage',
+    description: 'Tutto funziona? Controlla qui! Sempre verde!',
+    url: 'https://status.cngei.it',
+    hostname: 'status.cngei.it',
+    color: '#00b894',
+    emoji: '✅',
+  },
+  {
+    name: 'Assemblee',
+    description: 'Vota online! Lo scrutatore non è più un ruolo da temere!',
+    url: 'https://assemblee.cngei.it',
+    hostname: 'assemblee.cngei.it',
+    color: '#e17055',
+    emoji: '🗳️',
+    badge: 'NEW!',
+  },
+  {
+    name: 'E molto altro',
+    description: 'Scopriloooo',
+    url: '/docs/intro',
+    hostname: 'it.cngei.it',
+    color: '#9e85c8',
+    emoji: '👀️',
+    badge: '???',
+  },
+];
+
+function ServiceAdCard({service}: {service: ServiceAd}) {
+  return (
+    <div className={styles.adCard}>
+      <div className={styles.adBorder} style={{backgroundColor: service.color}} />
+      <div className={styles.adContent}>
+        <div className={styles.adHeader}>
+          <span className={styles.adEmoji}>{service.emoji}</span>
+          <div className={styles.adTitleWrapper}>
+            <h3 className={styles.adTitle} style={{color: service.color}}>
+              {service.name}
+            </h3>
+            <code className={styles.adHostname}>{service.hostname}</code>
+          </div>
+          {service.badge && (
+            <span className={styles.adBadge} style={{backgroundColor: service.color}}>
+              {service.badge}
+            </span>
+          )}
+        </div>
+        <p className={styles.adDescription}>{service.description}</p>
+        <div className={styles.adFooter}>
+          <Link
+            className={styles.adButton}
+            href={service.url}
+            style={{backgroundColor: service.color}}>
+            VAIIII →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function HomepageFeatures(): ReactNode {
   return (
     <section className={styles.features}>
       <div className="container">
         <div className="row">
           <div className="col col--12">
+            <h2 className="text--center margin-bottom--lg">I nostri servizi</h2>
+            <div className={styles.adGrid}>
+              {serviceAds.map((service, index) => (
+                <ServiceAdCard key={index} service={service} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="row margin-top--lg">
+          <div className="col col--12">
             <h2 className="text--center margin-bottom--lg">Chi siamo</h2>
-            <p>Componenti, collaboratori e amici della CoCon</p>
+            <p className="text--center">Componenti, collaboratori e amici della CoCon</p>
             <div className="row">
               {contributors.map((contributor, index) => (
                 <div key={index} className="col col--3 margin-bottom--lg">
@@ -66,7 +202,7 @@ export default function HomepageFeatures(): ReactNode {
                 </div>
               ))}
             </div>
-            <p>Vuoi vedere qui il tuo nome? Contribuisci su <a href={'https://github.com/cngei'}>GitHub</a> o contattaci tramite <a href={'mailto:servizi.informatici@cngei.it'}>mail</a></p>
+            <p className="text--center">Vuoi vedere qui il tuo nome? Contribuisci su <a href={'https://github.com/cngei'}>GitHub</a> o contattaci tramite <a href={'mailto:servizi.informatici@cngei.it'}>mail</a></p>
           </div>
         </div>
       </div>
