@@ -1,11 +1,25 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 1rem 0;
   width: 100%;
 }
 
 .featureSvg {
-  height: 200px;
+  height: 250px;
   width: 200px;
+}
+
+.contributorName {
+  margin-bottom: 0;
+}
+
+.contributorRole {
+  font-style: italic;
+}
+
+.contributorCard {
+  box-shadow: unset;
+  border: 1px solid var(--ifm-color-primary-lightest);
+  border-radius: 2px;
 }
