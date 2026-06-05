@@ -1,0 +1,60 @@
+---
+sidebar_position: 14
+---
+
+# Nodi del cluster
+
+Il cluster è composto da **5 nodi** che eseguono **Talos Linux**, un sistema operativo minimal progettato specificamente per Kubernetes.
+
+## Nodi
+
+| Nodo | Ruolo | Hostname |
+|---|---|---|
+| **Akela** | Control Plane | `akela.cngei.it` |
+| **Hathi** | Worker | `hathi.cngei.it` |
+| **Baloo** | Worker | `baloo.cngei.it` |
+| **Baghera** | Worker | `baghera.cngei.it` |
+| **Tha** | Worker | `tha.cngei.it` |
+
+I nomi dei nodi sono ispirati ai personaggi del Libro della Giungla, in onore al fondamento scout dell'atmosfera.
+
+## Control Plane (Akela)
+
+**Akela** è il nodo di controllo del cluster. Si occupa di:
+
+- Gestire lo stato del cluster Kubernetes
+- Prendere decisioni sullo scheduling dei pod
+- Gestire le risorse e la configurazione del cluster
+
+Il control plane è il "cervello" del cluster: se Akela non è disponibile, il cluster continua a funzionare ma non può essere gestito o modificato.
+
+## Worker Nodes (Hathi, Baloo, Baghera, Tha)
+
+I nodi worker eseguono effettivamente i servizi:
+
+- **Vaultwarden**, **Nextcloud**, **Immich**, ecc.
+- Database (PostgreSQL, Redis)
+- Strumenti di monitoraggio e logging
+
+Ogni servizio può essere eseguito su uno o più nodi worker, a seconda delle risorse necessarie.
+
+## Talos Linux
+
+Talos Linux è un sistema operativo minimale progettato per Kubernetes:
+
+- **Immutabile**: il sistema operativo non può essere modificato manualmente, garantendo coerenza
+- **Gestito via API**: ogni configurazione viene applicata tramite API, non tramite shell
+- **Minimale**: nessun pacchetto superfluo, ridotto superficie di attacco
+- **Automatico**: aggiornamenti e configurazioni sono gestiti centralmente
+
+## Load Balancer (lb.cngei.it)
+
+Il load balancer si trova davanti al cluster e si occupa di:
+
+- Distribuire il traffico tra i nodi
+- Gestire i certificati TLS
+- Instradare le richieste al servizio corretto in base al nome host
+
+## Rete interna
+
+Tutti i nodi del cluster comunicano su una **rete interna isolata**. Non sono accessibili direttamente dall'esterno, garantendo un livello aggiuntivo di sicurezza.

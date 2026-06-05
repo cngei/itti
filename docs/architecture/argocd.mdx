@@ -1,0 +1,73 @@
+---
+sidebar_position: 16
+---
+
+# ArgoCD e GitOps
+
+ArgoCD è lo strumento che usiamo per distribuire i servizi sul cluster Kubernetes. Seguiamo un approccio **GitOps**: tutta la configurazione è salvata in un repository Git e ArgoCD si assicura che lo stato del cluster corrisponda a quello definito nel repository.
+
+## Cos'è GitOps
+
+GitOps è un modo di gestire l'infrastruttura in cui:
+
+- **Tutto è codice**: la configurazione dei servizi è salvata in file YAML nel repository
+- **Git è la fonte di verità**: se è nel repository, è quello che dovrebbe essere sul cluster
+- **Le modifiche sono tracciate**: ogni cambiamento ha un commit, un autore e una descrizione
+- **Il deploy è automatico**: quando il repository cambia, ArgoCD applica le modifiche
+
+## Il repository cngei-gitops
+
+Tutta la configurazione dell'infrastruttura si trova nel repository [cngei-gitops](https://github.com/cngei/cngei-gitops). La struttura è organizzata per servizio:
+
+```
+cngei-gitops/
+├── vaultwarden/       # Configurazione di Vaultwarden
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   └── svc.yaml
+├── immich/            # Configurazione di Immich
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   └── ...
+├── nextcloud/         # Configurazione di Nextcloud
+├── wordpress/         # Configurazione di WordPress
+├── metabase/          # Configurazione di Metabase
+├── zulip/             # Configurazione di Zulip
+├── uptime-kuma/       # Configurazione di Uptime Kuma
+├── umami/             # Configurazione di Umami
+├── assemblee/         # Configurazione di Assemblee
+├── misc/              # Configurazioni condivise
+└── staging/           # Ambiente di staging
+```
+
+## Come funziona ArgoCD
+
+1. **Rilevamento**: ArgoCD controlla il repository Git periodicamente
+2. **Confronto**: confronta lo stato desiderato (nel repository) con lo stato attuale del cluster
+3. **Sincronizzazione**: se ci sono differenze, applica le modifiche al cluster
+
+## Aggiungere un servizio
+
+Per aggiungere un nuovo servizio:
+
+1. Crea una nuova directory nel repository con il nome del servizio
+2. Aggiungi i file di configurazione YAML:
+   - **deployment.yaml**: definisce il container del servizio
+   - **ingress.yaml**: definisce come il servizio è accessibile dall'esterno
+   - **svc.yaml**: definisce il servizio interno al cluster
+3. Fai commit e push sul branch principale
+4. ArgoCD rileverà le modifiche e distribuirà il servizio automaticamente
+
+## Modificare un servizio esistente
+
+1. Modifica i file YAML nel repository
+2. Fai commit e push
+3. ArgoCD applicherà le modifiche automaticamente
+
+## Rollback
+
+Se qualcosa va male dopo una modifica:
+
+1. ArgoCD rileva che lo stato del cluster è diverso da quello desiderato
+2. Puoi eseguire un rollback direttamente dall'interfaccia di ArgoCD
+3. Il cluster torna allo stato precedente

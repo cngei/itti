@@ -15,21 +15,82 @@ Immich è un servizio per salvare, organizzare e condividere foto e video. Funzi
 - Rivedere e cercare foto vecchie
 - Proteggere i ricordi da perdite o cancellazioni accidentali
 
-## Come si usa
-
-### Primo accesso
+## Come accedere dal browser
 
 1. Apri [foto.cngei.it](https://foto.cngei.it)
 2. Accedi con le tue credenziali
-3. Se vuoi usare l'app sul telefono, chiedi all'amministratore come scaricarla
+3. Da qui puoi vedere tutte le tue foto, caricarne di nuove e gestire gli album
 
-### Caricare foto
+## Scaricare l'app sul telefono
 
-1. Apri Immich e clicca sul pulsante **Carica** (simbolo con una freccia verso l'alto)
+L'app di Immich è disponibile per Android e iPhone (iOS). Puoi scaricarla da:
+
+**Per Android:**
+- [Google Play Store](https://play.google.com/store/apps/details?id=app.alextran.immich)
+- [F-Droid](https://f-droid.org/packages/app.alextran.immich)
+
+**Per iPhone (iOS):**
+- [App Store di Apple](https://apps.apple.com/us/app/immich/id1613945652)
+
+## Configurare l'app
+
+### Primo accesso
+
+1. Apri l'app
+2. Nella schermata di accesso, inserisci l'indirizzo del server: `https://foto.cngei.it`
+3. Inserisci le tue credenziali (email e password)
+4. Accedi
+
+### Attivare il backup automatico delle foto
+
+Il backup automatico carica le foto dal tuo telefono al server di Immich ogni volta che apri l'app o quando è in background.
+
+1. Apri l'app
+2. Tocca l'icona della **nuvola** in alto a destra
+3. Scegli quali album del telefono vuoi caricare sul server
+   - Puoi selezionare album specifici
+   - Puoi escludere album doppi toccandoli due volte (utile su iPhone, dove una foto può appartenere a più album)
+4. Scorri in fondo alla pagina e tocca **Attiva backup**
+
+Il tempo di caricamento dipende da quante foto hai. Se hai molte foto, potrebbe volerci un po'.
+
+### Scegliere quando caricare le foto
+
+Nelle impostazioni di backup puoi decidere:
+
+- **Solo Wi-Fi**: le foto vengono caricate solo quando sei connesso al Wi-Fi (consigliato per risparmiare dati)
+- **Wi-Fi o dati mobili**: le foto vengono caricate anche usando la connessione dati del telefono
+
+### Sincronizzare gli album
+
+Se attivi la **sincronizzazione album**, Immich crea automaticamente degli album sul server che rispecchiano quelli del tuo telefono. Le foto vengono organizzate nello stesso modo in cui le hai sul dispositivo.
+
+Questa è una sincronizzazione in una sola direzione (dal telefono al server). Puoi attivarla in qualsiasi momento.
+
+## Configurazioni specifiche per Android
+
+- **Ottimizzazione batteria**: alcuni telefoni Android hanno impostazioni aggressive per il risparmio batteria che possono bloccare il caricamento in background. Se il backup non funziona in background, cerca su internet "dont kill my app" seguito dal modello del tuo telefono per sapere come disattivare questa limitazione.
+- **Ricarica**: puoi impostare il caricamento automatico solo quando il telefono è in carica.
+- **Ritardo**: puoi impostare un ritardo minimo tra quando scatti una foto e quando viene caricata.
+
+## Configurazioni specifiche per iPhone (iOS)
+
+- **Aggiornamento in background**: devi attivare **Aggiorna app in background** nelle Impostazioni dell'iPhone, sotto **Generali** > **Aggiorna app in background**. Senza questa opzione attiva, l'app non può caricare foto quando non la stai usando.
+- **iCloud**: se hai foto su iCloud, Immich le scarica temporaneamente sul telefono per caricarle sul server. Assicurati di avere spazio sufficiente sul telefono e di essere connesso al Wi-Fi per evitare di consumare troppi dati.
+
+## Come funziona il backup
+
+- **Niente duplicati**: quando selezioni gli album da caricare, Immich controlla quali foto esistono già sul server e carica solo quelle nuove. Non devi preoccuparti di creare duplicati.
+- **Caricamento automatico**: le nuove foto vengono caricate quando apri l'app e periodicamente in background.
+- **Album di backup**: puoi scegliere quali album caricare e quali no.
+
+## Caricare foto manualmente
+
+1. Apri Immich e clicca sul pulsante **Carica** (icona con freccia verso l'alto)
 2. Scegli le foto o i video dal tuo dispositivo
 3. Attendi il completamento del caricamento
 
-### Creare un album condiviso
+## Creare un album condiviso
 
 1. Vai nella sezione **Album**
 2. Clicca su **Crea album**
@@ -37,7 +98,7 @@ Immich è un servizio per salvare, organizzare e condividere foto e video. Funzi
 4. Aggiungi le foto che vuoi condividere
 5. Invita altri membri del gruppo a vedere o aggiungere foto
 
-### Cercare una foto
+## Cercare una foto
 
 1. Usa la barra di ricerca in alto
 2. Puoi cercare per data, luogo o contenuto (es. "mare", "montagna")
@@ -47,8 +108,5 @@ Immich è un servizio per salvare, organizzare e condividere foto e video. Funzi
 
 - Attiva il backup automatico dall'app per non perdere nessuna foto
 - Organizza le foto in album per ritrovarle facilmente
-- Ricordati di eliminare le foto duplicate per risparmiare spazio
-
-## Hai bisogno di aiuto?
-
-Se hai problemi a caricare foto o ad accedere, contatta un amministratore del gruppo.
+- Usa la ricerca per trovare foto vecchie in pochi secondi
+- Condividi album per eventi o attività per raccogliere le foto di tutti

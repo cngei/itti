@@ -1,0 +1,73 @@
+---
+sidebar_position: 13
+---
+
+# Panoramica dell'infrastruttura
+
+## Come è organizzata
+
+L'infrastruttura CNGEI è progettata per essere sicura, affidabile e facile da gestire. Tutto il codice di configurazione è保存在 un repository Git (approccio GitOps), e ogni modifica viene tracciata e applicata automaticamente.
+
+## Componenti principali
+
+```
+Internet
+    │
+    ▼
+┌─────────────────────────────────┐
+│       lb.cngei.it               │
+│    Load Balancer (Traefik)      │
+└──────────┬──────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────┐
+│       bastion.cngei.it          │
+│    Host di accesso (SSH)        │
+└──────────┬──────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────┐
+│     Cluster Kubernetes          │
+│     (rete interna isolata)      │
+│                                 │
+│  ┌──────────┐                   │
+│  │ akela    │ ← Control Plane   │
+│  └──────────┘                   │
+│  ┌──────────┐ ┌──────────┐     │
+│  │ hathi    │ │ baloo    │     │
+│  └──────────┘ └──────────┘     │
+│  ┌──────────┐ ┌──────────┐     │
+│  │ baghera  │ │ tha      │     │
+│  └──────────┘ └──────────┘     │
+└─────────────────────────────────┘
+```
+
+## Flusso di una richiesta
+
+1. Un utente accede a un servizio (es. `cloud.cngei.it`)
+2. La richiesta arriva al **load balancer** (`lb.cngei.it`)
+3. Il load balancer instrada la richiesta al nodo corretto del cluster
+4. Il servizio (es. Nextcloud) risponde alla richiesta
+
+## Accesso amministrativo
+
+Per accedere ai server del cluster:
+
+1. Ci si connette al **bastion host** (`bastion.cngei.it`) tramite SSH
+2. Solo le chiavi SSH autorizzate possono accedere
+3. Dal bastion, si può raggiungere qualsiasi nodo del cluster
+
+## Gestione dei servizi
+
+I servizi sono definiti come file YAML nel repository Git. Quando viene fatto un commit o un merge sul branch principale:
+
+1. **ArgoCD** rileva il cambiamento
+2. Applica le modifiche al cluster
+3. Il servizio viene aggiornato automaticamente
+
+## Sicurezza
+
+- I nodi del cluster sono **isolati dalla rete esterna**
+- L'accesso avviene solo tramite **bastion host**
+- Solo **chiavi SSH** sono accettate (nessuna password)
+- Tutti i servizi sono esposti tramite **HTTPS** con certificati automatici

@@ -35,6 +35,10 @@ const config: Config = {
     locales: ['it'],
   },
 
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap',
+  ],
+
   presets: [
     [
       'classic',
@@ -79,6 +83,16 @@ const config: Config = {
           label: 'Cosa facciamo',
         },
         {
+          to: '/docs/architecture',
+          label: 'Cose per nerd',
+          position: 'left',
+        },
+        {
+          to: '/docs/faq',
+          label: 'FAQ',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/cngei/',
           label: 'GitHub',
           position: 'right',
@@ -94,6 +108,10 @@ const config: Config = {
             {
               label: 'Documentazione',
               to: '/docs/intro',
+            },
+            {
+              label: 'Cose per nerd',
+              to: '/docs/architecture',
             },
             {
               label: 'FAQ',

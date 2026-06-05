@@ -1,0 +1,84 @@
+---
+sidebar_position: 17
+---
+
+# Traefik e Ingress
+
+Traefik è il reverse proxy e load balancer che gestisce tutto il traffico in entrata verso i servizi del cluster.
+
+## Cos'è un Ingress
+
+Un Ingress è una risorsa di Kubernetes che definisce come il traffico esterno viene instradato ai servizi interni. In pratica, dice a Traefik: "quando arriva una richiesta per `cloud.cngei.it`, mandala al servizio Nextcloud".
+
+## Come funziona
+
+```
+Internet
+    │
+    │  Richiesta: https://cloud.cngei.it
+    ▼
+┌─────────────────────────────────┐
+│        lb.cngei.it              │
+│    (Traefik Load Balancer)      │
+│                                 │
+│  Legge l'Ingress:               │
+│  "cloud.cngei.it → nextcloud"   │
+└──────────┬──────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────┐
+│  Servizio Nextcloud nel cluster │
+└─────────────────────────────────┘
+```
+
+## IngressRoute
+
+Nel nostro cluster usiamo **IngressRoute**, un tipo di risorsa specifico di Traefik. Ecco un esempio:
+
+```yaml
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`cloud.cngei.it`)
+      services:
+        - name: nextcloud-helm
+          port: 8080
+  tls:
+    secretName: nextcloud-tls
+```
+
+Questo dice a Traefik:
+- Ascolta sulla porta sicura (`websecure`, ovvero HTTPS)
+- Se la richiesta è per `cloud.cngei.it`
+- Invia il traffico al servizio `nextcloud-helm` sulla porta 8080
+- Usa il certificato TLS salvato in `nextcloud-tls`
+
+## Servizi esposti
+
+Ogni servizio ha il suo IngressRoute:
+
+| Servizio | Hostname |
+|---|---|
+| Vaultwarden | `password.cngei.it` |
+| Immich | `foto.cngei.it` |
+| Nextcloud | `cloud.cngei.it` |
+| WordPress | `cngei.it`, `www.cngei.it` |
+| Metabase | `opendata.cngei.it` |
+| Zulip | `chat.cngei.it` |
+| Uptime Kuma | `status.cngei.it` |
+| Umami | `analytics.cngei.it` |
+| Assemblee | `assemblee.cngei.it` |
+
+## Middleware
+
+Traefik supporta anche i **Middleware**, che permettono di modificare le richieste in transito. Esempi:
+
+- **Redirect**: reindirizzare `http://` a `https://`
+- **Headers**: aggiungere header di sicurezza
+- **Rate limiting**: limitare il numero di richieste

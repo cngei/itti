@@ -14,6 +14,7 @@ Vaultwarden è un servizio che ti permette di salvare tutte le tue password in u
 - Generare password difficili da indovinare
 - Compilare automaticamente i moduli di accesso
 - Condividere password in sicurezza con altri membri del gruppo
+- Archiviare note sicure, carte di credito e dati di identità
 
 ## Come si usa
 
@@ -41,11 +42,162 @@ Vaultwarden è un servizio che ti permette di salvare tutte le tue password in u
 2. Clicca sul simbolo del **fulmine** o **genera password**
 3. Scegli una password lunga almeno 12 caratteri
 
+---
+
+## Organizzazioni e condivisione password
+
+Vaultwarden permette di condividere le password con altri membri del gruppo attraverso le **Organizzazioni**. Questo è utile per le password che servono a più persone (es. l'account social del gruppo, il WiFi, ecc.).
+
+### Cos'è un'organizzazione
+
+Un'organizzazione è uno spazio condiviso dove più persone possono accedere alle stesse password. Ogni organizzazione ha:
+- **Collezioni**: sono come "cartelle condivise" dove mettere le password. Ad esempio, puoi avere una collezione "Social" per le password dei social network e una collezione "Amministrativi" per le password dei servizi IT.
+- **Membri**: le persone che fanno parte dell'organizzazione. Puoi decidere chi può vedere e modificare le password in ogni collezione.
+
+### Creare un'organizzazione
+
+Per creare una nuova organizzazione:
+
+1. Accedi a Vaultwarden dal browser
+2. Vai nella sezione **Organizzazioni** (di solito nella barra laterale a sinistra)
+3. Clicca su **Nuova organizzazione**
+4. Inserisci il nome dell'organizzazione (es. "Sezione Bergamo - Password condivise")
+5. Clicca su **Salva**
+
+Una volta creata l'organizzazione, puoi iniziare a creare collezioni e invitare membri.
+
+### Creare una collezione
+
+Le collezioni servono a organizzare le password condivise:
+
+1. Vai nella tua organizzazione
+2. Clicca su **Collezioni**
+3. Clicca su **Nuova collezione**
+4. Dai un nome alla collezione (es. "Social", "Servizi IT", "WiFi")
+5. Salva
+
+### Invitare membri nell'organizzazione
+
+Per condividere le password, devi prima invitare le persone nell'organizzazione:
+
+1. Vai nella tua organizzazione
+2. Clicca su **Gestisci persone** o **Membri**
+3. Clicca su **Invita utente**
+4. Inserisci l'email della persona che vuoi invitare
+5. Scegli il ruolo:
+   - **Proprietario**: ha il controllo completo dell'organizzazione
+   - **Amministratore**: può gestire membri e collezioni
+   - **Utente**: può vedere e usare le password nelle collezioni a cui è assegnato
+6. Clicca su **Invita**
+
+La persona riceverà un'email di invito (se il servizio email è attivo) o potrà accettare l'invito direttamente dal suo Vaultwarden.
+
+### Assegnare membri a una collezione
+
+Dopo aver invitato i membri, devi dire a quali collezioni possono accedere:
+
+1. Vai su **Collezioni** nella tua organizzazione
+2. Clicca sui **tre puntini** accanto alla collezione
+3. Scegli **Gestisci accesso**
+4. Seleziona i membri o i gruppi che possono accedere
+5. Scegli i permessi:
+   - **Solo lettura**: possono vedere la password ma non modificarla
+   - **Lettura e scrittura**: possono vedere e modificare la password
+   - **Nascosto**: non vedranno questa collezione
+6. Salva
+
+### Condividere una password con l'organizzazione
+
+Per spostare una password dal tuo vault personale a una collezione condivisa:
+
+1. Cerca la password nel tuo vault
+2. Clicca sui **tre puntini** accanto alla password
+3. Scegli **Assegna a collezioni**
+4. Scegli l'organizzazione dalla lista
+5. Seleziona la collezione (o le collezioni) dove vuoi mettere la password
+6. Clicca su **Assegna**
+
+La password ora sarà visibile a tutti i membri che hanno accesso a quella collezione.
+
+### Aggiungere una nuova password direttamente a una collezione
+
+Puoi anche creare una password direttamente nella collezione condivisa:
+
+1. Clicca su **Aggiungi nuovo elemento**
+2. Scegli il tipo (Login, Nota sicura, Carta, Identità)
+3. Nel campo **Proprietario**, scegli l'organizzazione invece del tuo account personale
+4. Nel campo **Collezioni**, seleziona la collezione dove vuoi salvarla
+5. Compila i dettagli e clicca su **Salva**
+
+---
+
+## Configurare l'estensione del browser
+
+Vaultwarden è compatibile con le estensioni ufficiali di Bitwarden per Chrome, Firefox, Edge e altri browser. Dopo aver installato l'estensione, devi configurarla per connettersi al nostro server invece di quello predefinito di Bitwarden.
+
+### Installare l'estensione
+
+1. Installa l'estensione **Bitwarden Password Manager** dal store del tuo browser:
+   - [Chrome Web Store](https://chromewebstore.google.com/detail/bitwarden-password-manage/nngceckbapebfimnlniiiahkandclblb)
+   - [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/bitwarden-password-manager/)
+   - [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/bitwarden-password-manage/jbkfoedolllekgbhcbcoahehnbanhlov)
+   - [Safari Extensions](https://apps.apple.com/us/app/bitwarden-password-manager/1352778147)
+
+### Configurare il server
+
+Dopo aver installato l'estensione:
+
+1. Clicca sull'icona di Bitwarden nella barra del browser
+2. Clicca sull'icona dell'**ingranaggio** (Impostazioni) in alto a destra
+3. Scorri fino alla sezione **Self-hosted environment**
+4. Inserisci l'URL del server: `https://password.cngei.it`
+5. Clicca su **Salva**
+
+Ora l'estensione è configurata per usare il nostro Vaultwarden invece del cloud Bitwarden predefinito.
+
+### Accedere
+
+1. Dopo aver configurato il server, torna alla schermata di accesso
+2. Inserisci la tua email e password principale
+3. Clicca su **Accedi**
+
+Da ora in poi, l'estensione ti mostrerà le password salvate nel tuo Vaultwarden e ti chiederà di salvare nuove password quando accedi ai siti.
+
+### Configurare l'app mobile
+
+Lo stesso procedimento vale per l'app Bitwarden su Android e iOS:
+
+1. Apri l'app Bitwarden
+2. Vai su **Impostazioni** (di solito dal menu laterale)
+3. Scorri fino a **Server**
+4. Disattiva "USA il server predefinito Bitwarden"
+5. Inserisci l'URL: `https://password.cngei.it`
+6. Salva e accedi
+
+---
+
+## Bitwarden Send – Condividi password in modo temporaneo
+
+Se devi condividere una password con qualcuno **senza aggiungerlo all'organizzazione**, puoi usare **Bitwarden Send**:
+
+1. Vai su **Strumenti** → **Send**
+2. Clicca su **Nuovo Send**
+3. Inserisci il testo o il file che vuoi condividere (es. "Password WiFi: 123456")
+4. Imposta una **scadenza** (es. 1 giorno, 1 settimana)
+5. Imposta un **numero massimo di accessi** (opzionale)
+6. Clicca su **Salva**
+7. Copia il link generato e invialo alla persona
+
+Il link scadrà automaticamente dopo il tempo impostato, garantendo che la password non resti accessibile per sempre.
+
 ## Suggerimenti utili
 
 - Usa una password principale molto forte e non dimenticarla
 - Attiva la verifica in due passaggi se possibile
 - Non condividere mai la tua password principale con nessuno
+- Usa le **collezioni** per tenere ordinate le password condivise
+- Usa **Bitwarden Send** per condivisioni temporanee o con persone esterne
+- Controlla periodicamente la **salute del vault** per vedere se hai password deboli o riutilizzate
 
 ## Hai bisogno di aiuto?
 

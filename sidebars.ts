@@ -32,6 +32,18 @@ const sidebars: SidebarsConfig = {
         'services/assemblee',
       ],
     },
+    {
+      type: 'category',
+      label: 'Cose per nerd',
+      link: {type: 'doc', id: 'architecture/index'},
+      items: [
+        'architecture/overview',
+        'architecture/nodes',
+        'architecture/access',
+        'architecture/argocd',
+        'architecture/traefik',
+      ],
+    },
   ],
 };
 

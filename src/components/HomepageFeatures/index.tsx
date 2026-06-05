@@ -19,6 +19,7 @@ interface ServiceAd {
   color: string;
   emoji: string;
   badge?: string;
+  docUrl: string;
 }
 
 const contributors: Contributor[] = [
@@ -63,40 +64,45 @@ const serviceAds: ServiceAd[] = [
     color: '#ff6b6b',
     emoji: '🔐',
     badge: 'GRATIS!',
+    docUrl: '/docs/services/vaultwarden',
   },
   {
     name: 'Foto',
-    description: 'Come Google Foto ma nostro!',
+    description: 'Come Google Foto ma fatto in casa con la ricetta della nonna!',
     url: 'https://foto.cngei.it',
     hostname: 'foto.cngei.it',
     color: '#4ecdc4',
     emoji: '📸',
     badge: 'NOVITÀ!',
+    docUrl: '/docs/services/immich',
   },
   {
     name: 'Cloud',
-    description: 'File, documenti e moduli! Tutto in un posto!',
+    description: 'File, documenti e moduli, tutto in un posto!',
     url: 'https://cloud.cngei.it',
     hostname: 'cloud.cngei.it',
     color: '#45b7d1',
     emoji: '☁️',
     badge: 'TOP!',
+    docUrl: '/docs/services/nextcloud',
   },
   {
     name: 'Siti web',
-    description: 'Il sito del CNGEI e delle sezioni, a prova di lupetto!',
+    description: 'Il sito del CNGEI e delle sezioni, a prova di lupetto, ma il merito va alla Comunicazione!',
     url: 'https://cngei.it',
     hostname: 'cngei.it',
     color: '#96ceb3',
     emoji: '🌐',
+    docUrl: '/docs/services/wordpress',
   },
   {
     name: 'Open data',
-    description: 'Grafici e numeri per capire tutto! Tranne i verbali del GIDO!',
+    description: 'Grafici e tabelle con tutti i dati dell\'associazione! Tranne i verbali del GIDO',
     url: 'https://opendata.cngei.it',
     hostname: 'opendata.cngei.it',
     color: '#feca57',
     emoji: '📊',
+    docUrl: '/docs/services/metabase',
   },
   {
     name: 'Chat',
@@ -106,14 +112,16 @@ const serviceAds: ServiceAd[] = [
     color: '#6c5ce7',
     emoji: '💬',
     badge: 'PROVALO!',
+    docUrl: '/docs/services/zulip',
   },
   {
     name: 'Statuspage',
-    description: 'Tutto funziona? Controlla qui! Sempre verde!',
+    description: 'Non funziona qualcosa? Solo a te o è proprio rotto?',
     url: 'https://status.cngei.it',
     hostname: 'status.cngei.it',
     color: '#00b894',
     emoji: '✅',
+    docUrl: '/docs/services/uptime-kuma',
   },
   {
     name: 'Assemblee',
@@ -123,6 +131,7 @@ const serviceAds: ServiceAd[] = [
     color: '#e17055',
     emoji: '🗳️',
     badge: 'NEW!',
+    docUrl: '/docs/services/assemblee',
   },
   {
     name: 'E molto altro',
@@ -132,6 +141,7 @@ const serviceAds: ServiceAd[] = [
     color: '#9e85c8',
     emoji: '👀️',
     badge: '???',
+    docUrl: '/docs/intro',
   },
 ];
 
@@ -158,7 +168,7 @@ function ServiceAdCard({service}: {service: ServiceAd}) {
         <div className={styles.adFooter}>
           <Link
             className={styles.adButton}
-            href={service.url}
+            href={service.docUrl}
             style={{backgroundColor: service.color}}>
             VAIIII →
           </Link>

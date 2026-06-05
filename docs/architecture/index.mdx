@@ -1,0 +1,24 @@
+---
+sidebar_position: 12
+---
+
+# Architettura dell'infrastruttura
+
+Questa sezione descrive come è organizzata l'infrastruttura informatica del CNGEI, dai server fisici alla distribuzione dei servizi.
+
+## Panoramica
+
+L'infrastruttura è basata su un **cluster Kubernetes** gestito con **Talos Linux** e i servizi vengono distribuiti tramite **ArgoCD** usando un approccio GitOps. Tutta la configurazione è versionata nel repository [cngei-gitops](https://github.com/cngei/cngei-gitops).
+
+## Struttura
+
+- **[Panoramica](overview)** – L'infrastruttura nel suo insieme
+- **[Nodi del cluster](nodes)** – I server che compongono il cluster
+- **[Accesso remoto](access)** – Come ci si connette all'infrastruttura
+- **[ArgoCD e GitOps](argocd)** – Come vengono distribuiti i servizi
+- **[Traefik e Ingress](traefik)** – Come i servizi sono esposti all'esterno
+- **[Certificati TLS](certificates)** – Come funziona la crittografia
+
+## Hai domande?
+
+Per chiarimenti sull'architettura, contatta un amministratore del gruppo.

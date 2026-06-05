@@ -1,0 +1,175 @@
+---
+sidebar_position: 15
+---
+
+# Accesso remoto
+
+L'accesso ai server del cluster avviene tramite un **bastion host**, un server dedicato che funge da punto di ingresso unico e sicuro.
+
+## Architettura di accesso
+
+```
+Tuo computer
+    │
+    │  SSH (chiave privata)
+    ▼
+┌─────────────────────────────────┐
+│   bastion.cngei.it              │
+│   Bastion Host                  │
+└──────────┬──────────────────────┘
+           │  SSH (chiave interna)
+           ▼
+┌─────────────────────────────────┐
+│  Cluster Kubernetes             │
+│  (akela, hathi, baloo,          │
+│   baghera, tha)                 │
+└─────────────────────────────────┘
+```
+
+## Bastion Host
+
+Il bastion host (`bastion.cngei.it`) è l'unico punto di accesso dall'esterno verso l'infrastruttura interna. Ha queste caratteristiche:
+
+- **Solo chiavi SSH**: non è possibile accedere con password. Devi avere una chiave SSH autorizzata.
+- **Accesso limitato**: solo gli amministratori autorizzati hanno una chiave configurata.
+- **Ponte verso il cluster**: dal bastion puoi raggiungere tutti i nodi del cluster tramite la rete interna.
+
+## Come connettersi
+
+### Configurare la chiave SSH
+
+1. Genera una coppia di chiavi SSH (se non ne hai già una):
+   ```bash
+   ssh-keygen -t ed25519 -C "tuo.nome@cngei.it"
+   ```
+
+2. Condividi la chiave pubblica (`~/.ssh/id_ed25519.pub`) con un amministratore
+
+3. L'amministratore aggiungerà la tua chiave al bastion host
+
+### Connettersi al bastion
+
+```bash
+ssh bastion.cngei.it
+```
+
+### Connettersi a un nodo del cluster
+
+Dal bastion host, puoi connetterti a qualsiasi nodo:
+
+```bash
+ssh akela.cngei.it
+ssh hathi.cngei.it
+ssh baloo.cngei.it
+ssh baghera.cngei.it
+ssh tha.cngei.it
+```
+
+### Configurazione SSH locale
+
+Puoi semplificare la connessione configurando il tuo file `~/.ssh/config`:
+
+```
+Host bastion
+    HostName bastion.cngei.it
+    User tuonome
+
+Host akela hathi baloo baghera tha
+    ProxyJump bastion
+    User tuonome
+```
+
+Con questa configurazione, puoi connetterti direttamente ai nodi:
+
+```bash
+ssh akela
+ssh hathi
+```
+
+Il collegamento passerà automaticamente attraverso il bastion.
+
+## Connettersi con kubectl
+
+Per gestire il cluster Kubernetes con `kubectl` dal tuo computer, puoi usare SSH per fare tunneling verso il control plane.
+
+### Metodo 1: Proxy SSH diretto
+
+Puoi usare kubectl con un proxy SSH verso il nodo control plane:
+
+```bash
+kubectl --kubeconfig <(ssh -o ProxyJump=bastion.cngei.it akela.cngei.it 'sudo cat /etc/kubernetes/admin.conf') get nodes
+```
+
+Questo comando:
+1. Si connette al bastion
+2. Dal bastion salta su `akela`
+3. Legge il file di configurazione `admin.conf`
+4. Usa quella configurazione come kubeconfig locale
+
+### Metodo 2: Configurazione permanente
+
+Per usare kubectl in modo più comodo, configura il tuo `~/.kube/config`:
+
+1. Copia il kubeconfig dal control plane:
+```bash
+ssh -o ProxyJump=bastion.cngei.it akela.cngei.it 'sudo cat /etc/kubernetes/admin.conf' > ~/.kube/config
+```
+
+2. Modifica il file `~/.kube/config` e aggiungi `proxyCommand` al cluster:
+```yaml
+clusters:
+- cluster:
+    server: https://akela.cngei.it:6443
+    proxy-command: ssh -W %h:%p bastion.cngei.it
+  name: cngei-cluster
+```
+
+3. Ora puoi usare kubectl normalmente:
+```bash
+kubectl get nodes
+kubectl get pods -A
+kubectl get services
+```
+
+### Metodo 3: Alias bash/zsh
+
+Aggiungi al tuo `~/.bashrc` o `~/.zshrc`:
+
+```bash
+alias k='kubectl --kubeconfig <(ssh -o ProxyJump=bastion.cngei.it akela.cngei.it "sudo cat /etc/kubernetes/admin.conf" 2>/dev/null)'
+```
+
+Poi usa `k` come alias di kubectl:
+```bash
+k get pods -A
+k logs -f pod/nome-pod
+```
+
+## Comandi kubectl utili
+
+```bash
+# Vedere tutti i nodi del cluster
+kubectl get nodes
+
+# Vedere tutti i pod in tutti i namespace
+kubectl get pods -A
+
+# Vedere i log di un pod
+kubectl logs -n <namespace> <nome-pod>
+
+# Eseguire un comando dentro un pod
+kubectl exec -n <namespace> -it <nome-pod> -- /bin/sh
+
+# Vedere lo stato dei servizi
+kubectl get services -A
+
+# Vedere lo stato degli ingress
+kubectl get ingressroutes -A
+```
+
+## Sicurezza
+
+- **Nessuna password**: solo autenticazione tramite chiave SSH
+- **Accesso tracciato**: tutte le connessioni SSH vengono registrate
+- **Chiavi revocabili**: se un amministratore lascia il gruppo, la sua chiave viene rimossa
+- **Rete isolata**: i nodi del cluster non sono raggiungibili direttamente da internet
