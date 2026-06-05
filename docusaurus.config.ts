@@ -36,7 +36,7 @@ const config: Config = {
   },
 
   stylesheets: [
-    'https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap',
+    'https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fira+Code:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap',
   ],
 
   presets: [

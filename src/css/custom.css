@@ -32,3 +32,14 @@
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
+h1, h2 {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+  font-weight: 800;
+}
+
+/* Terminal-style footer */
+.footer {
+  border-top: 2px dashed var(--ifm-color-primary);
+  font-family: 'Fira Code', monospace;
+}
