@@ -134,6 +134,16 @@ const serviceAds: ServiceAd[] = [
     docUrl: '/docs/services/assemblee',
   },
   {
+    name: 'Skautt',
+    description: 'Il nostro Kahoot! I partecipanti rispondono con carte stampate, basta il telefono di chi conduce!',
+    url: 'https://kahoot.cngei.it',
+    hostname: 'kahoot.cngei.it',
+    color: '#a55eea',
+    emoji: '🎯',
+    badge: 'PROVALO!',
+    docUrl: '/docs/services/skautt',
+  },
+  {
     name: 'E molto altro',
     description: 'Scopriloooo',
     url: '/docs/intro',
