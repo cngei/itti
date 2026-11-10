@@ -30,6 +30,36 @@ const sidebars: SidebarsConfig = {
         'services/umami',
         'services/app-mobile',
         'services/assemblee',
+        'services/skautt',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Guide',
+      link: {type: 'generated-index', slug: '/guide'},
+      items: [
+        {
+          type: 'category',
+          label: 'Portale associativo',
+          link: {type: 'generated-index', slug: '/guide/portale-associativo'},
+          items: [
+            'guide/portale-lista-attesa',
+            'guide/portale-trasferimenti',
+            'guide/portale-rinnovo-adesione',
+            'guide/portale-censimenti',
+            'guide/portale-cambio-email',
+            'guide/portale-consensi-privacy',
+            {
+              type: 'category',
+              label: 'Formazione',
+              link: {type: 'generated-index', slug: '/guide/portale-associativo/formazione'},
+              items: [
+                'guide/portale-associativo/formazione/commento-capo-gruppo',
+                'guide/portale-associativo/formazione/valutazione-staff',
+              ],
+            },
+          ],
+        },
       ],
     },
     {

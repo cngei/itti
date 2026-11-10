@@ -83,6 +83,11 @@ const config: Config = {
           label: 'Cosa facciamo',
         },
         {
+          to: '/docs/guide',
+          label: 'Guide',
+          position: 'left',
+        },
+        {
           to: '/docs/architecture',
           label: 'Cose per nerd',
           position: 'left',
