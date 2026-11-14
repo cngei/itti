@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'CNGEI IT',
   tagline: 'Servizi Informatici',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo_it.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -64,8 +64,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/logo_it.png',
     colorMode: {
       respectPrefersColorScheme: true,
     },
